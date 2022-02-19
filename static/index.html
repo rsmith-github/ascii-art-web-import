@@ -7,9 +7,14 @@
 <body>
     <h2>Static Website</h2>
     <div>
-        <form method="POST" action="/form">
+        <form method="POST" action="/ascii-art">
+            <select name="dropdown">
+                <option value="standard.txt">Standard</option>
+                <option value="shadow.txt">Shadow</option>
+                <option value="tinkertoy.txt">Tinkertoy</option>
+            </select>
             <label>input</label>
-            <input name="input" type="text" value="" />
+            <textarea name="input" type="text" value=""></textarea>
             <input type="submit" value="submit" />
         </form>
     </div>
