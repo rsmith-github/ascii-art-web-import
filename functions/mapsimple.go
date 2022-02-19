@@ -34,14 +34,18 @@ func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	// Check if space is present.
+	space_checker := 0
 	// Array to split by \n later.
 	var split []string
 	// Edge case
 	if input == "\\n" {
-		fmt.Println()
-		os.Exit(0)
+		fmt.Print("happened")
+		fmt.Fprintf(w, "\n")
+		return
 		// If there are any \n in input, and the last character is not \n
-	} else if strings.Contains(input, "\\n") && string(input[len(input)-2]) != "\\" && string(input[len(input)-1]) != "n" {
+	} else if strings.Contains(input, "\\n") /* && string(input[len(input)-2]) != "\\" && string(input[len(input)-1]) != "n" */ {
+		space_checker++
 		// Split by \n.
 		split = strings.Split(input, "\\n")
 		// Loop over split array.
@@ -50,16 +54,15 @@ func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) {
 			for i := 0; i < 8; i++ {
 				// Print one line of every character the input.
 				for _, char := range split[j] {
-					fmt.Fprintf(w, "%s\n", ascii_map[char][i])
+					fmt.Fprintf(w, "%s", ascii_map[char][i])
 				}
 				// Print new line to go to next row.
 				fmt.Fprintf(w, "\n")
 			}
 		}
-		os.Exit(0)
-	} else if input == "" {
-		os.Exit(0)
-	}
+	} /* else if input == "" {
+
+	} */
 
 	// Edge case variable. If it is equal to 1, print a new line.
 	edge := 0
@@ -69,13 +72,16 @@ func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) {
 		edge++
 	}
 
-	// Print ascii character.
-	for i := 0; i < 8; i++ {
-		for _, char := range input {
-			fmt.Fprintf(w, "%s", ascii_map[char][i])
-		}
-		fmt.Fprintf(w, "\n")
+	// if there are no spaces, print the ascii art normally.
+	if space_checker != 1 {
+		// Print ascii character.
+		for i := 0; i < 8; i++ {
+			for _, char := range input {
+				fmt.Fprintf(w, "%s", ascii_map[char][i])
+			}
+			fmt.Fprintf(w, "\n")
 
+		}
 	}
 	// If edge case is met, print new line.
 	if edge == 1 {
