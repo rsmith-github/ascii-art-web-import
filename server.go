@@ -3,13 +3,14 @@ package main
 import (
 	"asciiweb/functions"
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 )
 
 func main() {
-	// file Server to host static files
-	fileServer := http.FileServer(http.Dir("./static"))
+	// index page
+	fileServer := http.FileServer(http.Dir("./templates"))
 	http.Handle("/", fileServer)
 	http.HandleFunc("/ascii-art", formHandler)
 
@@ -26,5 +27,8 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	input := r.FormValue("input")
-	functions.MakeMapSimple(input, w, r)
+	ascii_art_str := functions.MakeMapSimple(input, w, r)
+
+	tmpl, _ := template.ParseFiles("templates/asciiart.html")
+	tmpl.Execute(w, ascii_art_str)
 }

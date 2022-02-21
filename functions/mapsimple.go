@@ -8,8 +8,7 @@ import (
 	"strings"
 )
 
-func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) {
-
+func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) string {
 	fil := r.FormValue("dropdown")
 
 	// Read file using ioutil
@@ -37,6 +36,8 @@ func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) {
 	// Replace literal new line with \\n
 	input = strings.ReplaceAll(input, "\r\n", "\\n")
 
+	result := ``
+
 	// Check if space is present.
 	backn_checker := 0
 	// Array to split by \n later.
@@ -44,7 +45,7 @@ func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) {
 	// Edge case.
 	if input == "\\n" {
 		fmt.Fprintf(w, "\n")
-		return
+		return ""
 		// If there are any \n in input, and the last character is not \n
 	} else if strings.Contains(input, "\\n") || strings.Contains(input, "\n") /* && string(input[len(input)-2]) != "\\" && string(input[len(input)-1]) != "n" */ {
 		backn_checker++
@@ -58,13 +59,16 @@ func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) {
 			for i := 0; i < 8; i++ {
 				// Print one line of every character the input.
 				for _, char := range split[j] {
-					fmt.Fprintf(w, "%s", ascii_map[char][i])
+					// fmt.Fprintf(w, "%s", ascii_map[char][i])
+					result += ascii_map[char][i]
 				}
 				// Print new line to go to next row.
-				fmt.Fprintf(w, "\n")
+				// fmt.Fprintf(w, "\n")
+				result += "\n"
+
 			}
 		}
-		return
+		return result
 	} /* else if input == "" {
 
 	} */
@@ -82,14 +86,17 @@ func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) {
 		// Print ascii character.
 		for i := 0; i < 8; i++ {
 			for _, char := range input {
-				fmt.Fprintf(w, "%s", ascii_map[char][i])
+				// fmt.Fprintf(w, "%s", ascii_map[char][i])
+				result += ascii_map[char][i]
 			}
-			fmt.Fprintf(w, "\n")
+			// fmt.Fprintf(w, "\n")
+			result += "\n"
+
 		}
 	}
 	// If edge case is met, print new line.
-	if edge == 1 {
-		fmt.Fprintf(w, "\n")
-	}
-	return
+	// if edge == 1 {
+	// 	fmt.Fprintf(w, "\n")
+	// }
+	return result
 }
