@@ -34,20 +34,24 @@ func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	// Replace literal new line with \\n
+	input = strings.ReplaceAll(input, "\r\n", "\\n")
+
 	// Check if space is present.
-	space_checker := 0
+	backn_checker := 0
 	// Array to split by \n later.
 	var split []string
-	// Edge case
+	// Edge case.
 	if input == "\\n" {
-		fmt.Print("happened")
 		fmt.Fprintf(w, "\n")
 		return
 		// If there are any \n in input, and the last character is not \n
-	} else if strings.Contains(input, "\\n") /* && string(input[len(input)-2]) != "\\" && string(input[len(input)-1]) != "n" */ {
-		space_checker++
+	} else if strings.Contains(input, "\\n") || strings.Contains(input, "\n") /* && string(input[len(input)-2]) != "\\" && string(input[len(input)-1]) != "n" */ {
+		backn_checker++
 		// Split by \n.
-		split = strings.Split(input, "\\n")
+		if strings.Contains(input, "\\n") {
+			split = strings.Split(input, "\\n")
+		}
 		// Loop over split array.
 		for j := 0; j < len(split); j++ {
 			// Loop over each line in ascii character.
@@ -60,6 +64,7 @@ func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) {
 				fmt.Fprintf(w, "\n")
 			}
 		}
+		return
 	} /* else if input == "" {
 
 	} */
@@ -72,20 +77,19 @@ func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) {
 		edge++
 	}
 
-	// if there are no spaces, print the ascii art normally.
-	if space_checker != 1 {
+	// if there is no \n, print the ascii art normally.
+	if backn_checker != 1 {
 		// Print ascii character.
 		for i := 0; i < 8; i++ {
 			for _, char := range input {
 				fmt.Fprintf(w, "%s", ascii_map[char][i])
 			}
 			fmt.Fprintf(w, "\n")
-
 		}
 	}
 	// If edge case is met, print new line.
 	if edge == 1 {
 		fmt.Fprintf(w, "\n")
 	}
-
+	return
 }
