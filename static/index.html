@@ -1,18 +1,52 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-    <title>Static Website</title>
+<title>ASCII Art Web</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="stylesheet.css" type="text/css" media="screen" />
 </head>
 
 <body>
-    <h2>Static Website</h2>
-    <div>
-        <form method="POST" action="/form">
-            <label>input</label>
-            <input name="input" type="text" value="" />
-            <input type="submit" value="submit" />
-        </form>
+    <div class="title">
+        <h1>Ascii Art Web</h1>
     </div>
+    <div class="credits">
+    </br><h6>Created by Nikolai, Remi, and Maya</h6>
+</div>
+
+<div class="input_group">
+    <form method="POST" action="/ascii-art">
+        <div class="options">
+            <!-- standard option -->
+            <input name="option" type="radio" id="standard" class="hide">
+            <label for="standard" value="standard.txt">Standard</label>
+            <!-- shadow option -->
+            <input name="option" type="radio" id="shadow" class="hide">
+            <label for="shadow" value="shadow.txt">Shadow</label>
+            <!-- tinkertoy option -->
+            <input name="option" type="radio" id="tinker" class="hide">
+            <label for="tinker" value="tinkertoy.txt">Tinkertoy</label>
+        </select></div></br>
+        <textarea name="input" type="text" value="" class="form__field" id="input" required placeholder="Text"></textarea></br>
+        <input style="margin-left: 37%;" type="submit" name="submit" value="submit" id="submit" class="submit" />
+    </form>
+</div>
+<pre>Hello my dude this is ascii art
+</pre>
+
+<div class="waveWrapper waveAnimation">
+    <div class="waveWrapperInner bgTop">
+      <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgMiddle">
+      <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgBottom">
+      <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+    </div>
+  </div>
 </body>
 
 </html>

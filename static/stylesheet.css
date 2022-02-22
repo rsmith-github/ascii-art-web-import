@@ -1,0 +1,240 @@
+/* Title */
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+.title {
+  font-family: "Montserrat";
+  text-align: center;
+  display: flex;
+  flex-shrink: 6;
+  letter-spacing: 6.5px;
+  text-transform: uppercase;
+  font-size: 30px;
+  line-height: .75;
+  height: 65px;
+  margin-top: 7%;
+  margin-bottom: 0%;
+}
+
+/* Credits */
+.credits {
+  font-family: "Montserrat";
+  text-align: center;
+  display: flex;
+  flex-shrink: 6;
+  height: 150px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: .75;
+  margin: 5%;
+  margin-top: 0%;
+}
+
+/* Dropdown menu */
+.options {
+  flex-shrink: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 3px;
+}
+
+.options input {
+  display: none;
+}
+.options > label {
+  position: relative;
+  margin-right: 35px;
+  padding-left: 26px;
+  cursor: pointer;
+}
+.options > label:before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 0;
+  top: 50%;
+  margin-top: -8px;
+  border: 1px solid #11998e;
+  border-radius: 8px;
+}
+
+.options > label:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 50%;
+  left: 8px;
+  margin-top: 0;
+  background: #11998e;
+  border-radius: 4px;
+  transition: .2s ease-in-out;
+}
+
+.options :checked + label:after {
+  height: 9px;
+  width: 9px;
+  margin-top: -3.5px;
+  left: 4.5px;
+}  
+
+/* Input textbox
+From codepen.io by Lucas Oliveira */
+.form__group {
+  display: flex;
+  position: fixed;
+  padding: 15px 0 0;
+  margin-top: 30px;
+  width: 50%;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 500px;
+  border: 0;
+  border-bottom: 2px solid #9b9b9b;
+  outline: 0;
+  font-size: 1.3rem;
+  color: #9b9b9b;
+  padding: 7px;
+  margin-top: 27px;
+  background: transparent;
+  resize: none;
+}
+
+
+.form__field::placeholder {
+    color: #cfcfcf;
+}
+
+.form__field:focus {
+  padding-bottom: 6px; 
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #11998e, #38ef7d);
+  border-image-slice: 1;
+  animation: ani 8s linear infinite;
+}
+
+/* Submit button
+From cssbuttons.io by @kirzin */
+#submit {
+    text-decoration: none;
+    position: relative;
+    letter-spacing: 4.5px;
+    margin-top: 50px;
+    margin-bottom: 70px;
+    border: none;
+    font-size: 14px;
+    font-family: inherit;
+    color: #fff;
+    width: 9em;
+    height: 3em;
+    line-height: 2em;
+    text-align: center;
+    background: linear-gradient(90deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
+    background-size: 300%;
+    border-radius: 30px;
+    z-index: 1;
+   }
+   
+   input:hover {
+    animation: ani 8s linear infinite;
+    border: none;
+   }
+   
+   @keyframes ani {
+    0% {
+     background-position: 0%;
+    }
+   
+    100% {
+     background-position: 400%;
+    }
+   }
+      
+/* Body */
+body {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 1.5rem;
+    background-color:#fff;
+}
+
+/* Background 
+From codepen.io by Jelena Jovanovic */
+@keyframes move_wave {
+  0% {
+      transform: translateX(0) translateZ(0) scaleY(1)
+  }
+  50% {
+      transform: translateX(-25%) translateZ(0) scaleY(0.55)
+  }
+  100% {
+      transform: translateX(-50%) translateZ(0) scaleY(1)
+  }
+}
+.waveWrapper {
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  z-index: -1;
+}
+.waveWrapperInner {
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+  bottom: 65%;
+}
+.bgTop {
+  z-index: 15;
+  opacity: 0.5;
+}
+.bgMiddle {
+  z-index: 10;
+  opacity: 0.75;
+}
+.bgBottom {
+  z-index: 5;
+}
+.wave {
+  position: absolute;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-repeat: repeat no-repeat;
+  background-position: 0 bottom;
+  transform-origin: center bottom;
+}
+.waveTop {
+  background-size: 50% 100px;
+}
+.waveAnimation .waveTop {
+animation: move-wave 3s;
+ -webkit-animation: move-wave 3s;
+ -webkit-animation-delay: 1s;
+ animation-delay: 1s;
+}
+.waveMiddle {
+  background-size: 50% 120px;
+}
+.waveAnimation .waveMiddle {
+  animation: move_wave 10s linear infinite;
+}
+.waveBottom {
+  background-size: 50% 100px;
+}
+.waveAnimation .waveBottom {
+  animation: move_wave 15s linear infinite;
+}
