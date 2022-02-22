@@ -1,17 +1,18 @@
 package main
 
 import (
+	"asciiweb/functions"
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 )
 
 func main() {
-	// file Server to host static files
-	fileServer := http.FileServer(http.Dir("./static"))
+	// index page
+	fileServer := http.FileServer(http.Dir("./templates"))
 	http.Handle("/", fileServer)
-	http.HandleFunc("/hello", helloHandler)
-	http.HandleFunc("/form", formHandler)
+	http.HandleFunc("/ascii-art", formHandler)
 
 	fmt.Printf("Starting server at http://localhost:8080\n")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
@@ -19,29 +20,15 @@ func main() {
 	}
 }
 
-// Holds all the logic related to the /hello request
-func helloHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/hello" {
-		http.Error(w, "404 not found.", http.StatusNotFound)
-		return
-	}
-
-	if r.Method != "GET" {
-		http.Error(w, "Method is not supported.", http.StatusNotFound)
-		return
-	}
-
-	fmt.Fprintf(w, "Hello!")
-}
-
-// handler to accept the /form request
+// handler to accept the /ascii-art request
 func formHandler(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		fmt.Fprintf(w, "ParseForm() err: %v", err)
 		return
 	}
-	fmt.Fprintf(w, "POST request successful\n")
 	input := r.FormValue("input")
+	ascii_art_str := functions.MakeMapSimple(input, w, r)
 
-	fmt.Fprintf(w, "Input = %s\n", input)
+	tmpl, _ := template.ParseFiles("templates/asciiart.html")
+	tmpl.Execute(w, ascii_art_str)
 }

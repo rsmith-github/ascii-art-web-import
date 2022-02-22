@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <title>Ascii Art Web</title>
+</head>
+
+<body>
+    <h2>Ascii Art Web</h2>
+    <div class="top">
+        <form method="POST" action="/ascii-art">
+            <select name="dropdown">
+                <option value="standard.txt">Standard</option>
+                <option value="shadow.txt">Shadow</option>
+                <option value="tinkertoy.txt">Tinkertoy</option>
+            </select>
+
+            <label>input</label>
+            <textarea name="input" type="text" value=""></textarea>
+
+            <input type="submit" value="submit" />
+        </form>
+    </div>
+    <div class="bottom">
+        <pre>{{.}}</pre>
+    </div>
+</body>
+
+</html>
