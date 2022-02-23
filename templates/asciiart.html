@@ -1,28 +1,53 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-    <title>Ascii Art Web</title>
+<title>ASCII Art Web</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="stylesheet.css" type="text/css" media="screen" />
 </head>
 
 <body>
-    <h2>Ascii Art Web</h2>
-    <div class="top">
-        <form method="POST" action="/ascii-art">
-            <select name="dropdown">
-                <option value="standard.txt">Standard</option>
-                <option value="shadow.txt">Shadow</option>
-                <option value="tinkertoy.txt">Tinkertoy</option>
-            </select>
-
-            <label>input</label>
-            <textarea name="input" type="text" value=""></textarea>
-
-            <input type="submit" value="submit" />
-        </form>
+    <div class="title">
+        <h1>Ascii Art Web</h1>
     </div>
-    <div class="bottom">
-        <pre>{{.}}</pre>
+    <div class="credits">
+    </br><h6>Created by Nikolai, Remi, and Maya</h6>
+</div>
+
+<div class="input_group">
+    <form method="POST" action="/ascii-art">
+        <div class="options">
+            <!-- standard option -->
+            <input name="option" type="radio" id="standard" class="hide" value="standard.txt">
+            <label for="standard">Standard</label>
+            <!-- shadow option -->
+            <input name="option" type="radio" id="shadow" class="hide" value="shadow.txt">
+            <label for="shadow">Shadow</label>
+            <!-- tinkertoy option -->
+            <input name="option" type="radio" id="tinker" class="hide" value="tinkertoy.txt">
+            <label for="tinker">Tinkertoy</label>
+        </select></div></br>
+        <textarea name="input" type="text" value="" class="form__field" id="input" required placeholder="Text"></textarea></br>
+        <input style="margin-left: 37%;" type="submit" name="submit" value="submit" id="submit" class="submit" />
+    </form>
+</div>
+<div class="bottom">
+  <pre>{{.}}</pre>
+</div>
+
+<div class="waveWrapper waveAnimation">
+    <div class="waveWrapperInner bgTop">
+      <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
     </div>
+    <div class="waveWrapperInner bgMiddle">
+      <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgBottom">
+      <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+    </div>
+  </div>
 </body>
 
 </html>

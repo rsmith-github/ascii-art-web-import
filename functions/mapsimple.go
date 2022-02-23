@@ -9,7 +9,7 @@ import (
 )
 
 func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) string {
-	fil := r.FormValue("dropdown")
+	fil := r.FormValue("option")
 
 	// Read file using ioutil
 	content, _ := os.Open(fil)
