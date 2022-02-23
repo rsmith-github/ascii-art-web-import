@@ -246,3 +246,10 @@ animation: move-wave 3s;
   margin-bottom: 50px;
   margin-top: -66px;
 }
+
+@media (max-width: 580px) {
+  .title {
+    margin-bottom: 120px;
+    line-height: normal;  
+  }
+}
