@@ -241,6 +241,8 @@ animation: move-wave 3s;
 
 /* bottom */
 .bottom {
-  width: 800px;
-  overflow-x:scroll
+  width: 80%;
+  overflow-x:scroll;
+  margin-bottom: 50px;
+  margin-top: -66px;
 }
