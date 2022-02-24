@@ -2,17 +2,21 @@ package functions
 
 import (
 	"bufio"
-	"fmt"
 	"net/http"
 	"os"
 	"strings"
 )
 
-func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) string {
+func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) (string, error) {
+
+	// get name of selected banner file from radio button.
 	fil := r.FormValue("option")
 
-	// Read file using ioutil
-	content, _ := os.Open(fil)
+	// Open file.
+	content, err := os.Open(fil)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+	}
 
 	// Use bufio scanner to scan file content line by line.
 	scanner := bufio.NewScanner(content)
@@ -33,26 +37,25 @@ func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) string 
 		}
 	}
 
+	if input == " " {
+		return strings.Join(ascii_map[' '], "\n"), nil
+	} else if len(input) == 1 {
+		return strings.Join(ascii_map[rune(input[0])], "\n"), nil
+	}
+
 	// Replace literal new line with \\n
-	input = strings.ReplaceAll(input, "\r\n", "\\n")
+	input = strings.ReplaceAll(input, "\r\n", "NEWLINEhere")
 
 	result := ``
 
-	// Check if space is present.
-	backn_checker := 0
+	// Check if \n is present.
 	// Array to split by \n later.
 	var split []string
-	// Edge case.
-	if input == "\\n" {
-		fmt.Fprintf(w, "\n")
-		return ""
-		// If there are any \n in input, and the last character is not \n
-	} else if strings.Contains(input, "\\n") || strings.Contains(input, "\n") /* && string(input[len(input)-2]) != "\\" && string(input[len(input)-1]) != "n" */ {
-		backn_checker++
+
+	// If there are any new lines in input
+	if strings.Contains(input, "NEWLINEhere") {
 		// Split by \n.
-		if strings.Contains(input, "\\n") {
-			split = strings.Split(input, "\\n")
-		}
+		split = strings.Split(input, "NEWLINEhere")
 		// Loop over split array.
 		for j := 0; j < len(split); j++ {
 			// Loop over each line in ascii character.
@@ -62,41 +65,25 @@ func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) string 
 					// fmt.Fprintf(w, "%s", ascii_map[char][i])
 					result += ascii_map[char][i]
 				}
-				// Print new line to go to next row.
-				// fmt.Fprintf(w, "\n")
+				// add new line to go to next row.
 				result += "\n"
-
 			}
 		}
-		return result
-	} /* else if input == "" {
-
-	} */
-
-	// Edge case variable. If it is equal to 1, print a new line.
-	edge := 0
-	// If the last two characters are \ and n, remove them from the input variable and increment edge case.
-	if string(input[len(input)-2]) == "\\" && string(input[len(input)-1]) == "n" {
-		input = input[:len(input)-2]
-		edge++
+		return result, nil
+	} else if input == "" {
+		// Add error message?
+		return "", nil
 	}
 
-	// if there is no \n, print the ascii art normally.
-	if backn_checker != 1 {
-		// Print ascii character.
-		for i := 0; i < 8; i++ {
-			for _, char := range input {
-				// fmt.Fprintf(w, "%s", ascii_map[char][i])
-				result += ascii_map[char][i]
-			}
-			// fmt.Fprintf(w, "\n")
-			result += "\n"
-
+	// Print ascii character.
+	for i := 0; i < 8; i++ {
+		for _, char := range input {
+			// fmt.Fprintf(w, "%s", ascii_map[char][i])
+			result += ascii_map[char][i]
 		}
+		// fmt.Fprintf(w, "\n")
+		result += "\n"
 	}
-	// If edge case is met, print new line.
-	// if edge == 1 {
-	// 	fmt.Fprintf(w, "\n")
-	// }
-	return result
+
+	return result, nil
 }
