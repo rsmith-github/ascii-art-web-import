@@ -2,13 +2,14 @@ package functions
 
 import (
 	"bufio"
+	"errors"
+	"fmt"
 	"net/http"
 	"os"
 	"strings"
 )
 
 func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) (string, error) {
-
 	// get name of selected banner file from radio button.
 	fil := r.FormValue("option")
 
@@ -16,6 +17,14 @@ func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) (string
 	content, err := os.Open(fil)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
+	}
+	// er := 0
+	for _, i := range input {
+		if i < ' ' || i > '~' {
+			fmt.Print("wrong")
+			// er = 1
+			return "405", errors.New("405")
+		}
 	}
 
 	// Use bufio scanner to scan file content line by line.
@@ -85,5 +94,8 @@ func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) (string
 		result += "\n"
 	}
 
+	/*if er != 0 {
+		return result, errors.New("405")
+	}*/
 	return result, nil
 }
