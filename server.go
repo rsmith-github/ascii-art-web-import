@@ -29,7 +29,8 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 	input := r.FormValue("input")
 	ascii_art_str, err := functions.MakeMapSimple(input, w, r)
 	if err != nil {
-		log.Fatal(err)
+		// log.Fatal(err)
+		MethodNotAllowed(w, r)
 	}
 
 	tmpl, _ := template.ParseFiles("templates/asciiart.html")
