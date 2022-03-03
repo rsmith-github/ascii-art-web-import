@@ -16,14 +16,20 @@ func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) (string
 	// Open file.
 	content, err := os.Open(fil)
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println(err.Error())
+		return "", errors.New("File Not Found")
 	}
 	// er := 0
+
+	if input == "" {
+		return "", errors.New("Bad Request")
+	}
+	Bool := strings.Contains(input, "\r\n")
 	for _, i := range input {
-		if i < ' ' || i > '~' {
-			fmt.Print("wrong")
+		if i < ' ' && !Bool || i > '~' && !Bool {
+			// fmt.Print("wrong")
 			// er = 1
-			return "405", errors.New("405")
+			return "", errors.New("Bad Request")
 		}
 	}
 
@@ -63,15 +69,14 @@ func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) (string
 
 	// If there are any new lines in input
 	if strings.Contains(input, "NEWLINEhere") {
-		// Split by \n.
+		// Split by NEWLINEhere.
 		split = strings.Split(input, "NEWLINEhere")
 		// Loop over split array.
 		for j := 0; j < len(split); j++ {
 			// Loop over each line in ascii character.
 			for i := 0; i < 8; i++ {
-				// Print one line of every character the input.
+				// Add one line of each character the input.
 				for _, char := range split[j] {
-					// fmt.Fprintf(w, "%s", ascii_map[char][i])
 					result += ascii_map[char][i]
 				}
 				// add new line to go to next row.
@@ -79,9 +84,6 @@ func MakeMapSimple(input string, w http.ResponseWriter, r *http.Request) (string
 			}
 		}
 		return result, nil
-	} else if input == "" {
-		// Add error message?
-		return "", nil
 	}
 
 	// Print ascii character.

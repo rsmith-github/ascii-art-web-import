@@ -2,57 +2,70 @@
 <html>
 
 <head>
-<title>ASCII Art Web</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="stylesheet.css" type="text/css" media="screen" />
+  <title>ASCII Art Web</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css" type="text/css" media="screen" />
+  <script>
+    function scrollBottom() {
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+  </script>
 </head>
 
-<body>
+<body onload="scrollBottom()">
   <div class="title">
-      <h1>Ascii Art Web</h1>
+    <h1>Ascii Art Web</h1>
   </div>
   <div class="credits">
-  </br><h6>Created by Nikolay, Remi, and Maya</h6>
-</div>
+    </br>
+    <h6>Created by Nikolay, Remi, and Maya</h6>
+  </div>
 
-<div>
-  <h4>Select your style:</h4></br>
-</div>
+  <div class="cta" id="choose">
+    <h4>Choose a style:</h4></br>
+  </div>
 
-<div class="input_group">
+  <div class="input_group">
     <form method="POST" action="/ascii-art">
-        <div class="options">
-            <!-- standard option -->
-            <input checked="checked" name="option" type="radio" id="standard" class="hide" value="standard.txt">
-            <label for="standard" >Standard</label>
-            <!-- shadow option -->
-            <input name="option" type="radio" id="shadow" class="hide" value="shadow.txt">
-            <label for="shadow">Shadow</label>
-            <!-- tinkertoy option -->
-            <input name="option" type="radio" id="thinker" class="hide" value="thinkertoy.txt">
-            <label for="thinker">Thinkertoy</label>
-        </select></div></br>
-        <div>
-          <h5>Type here:</h5>
-        </div>
-        <textarea name="input" type="text" value="" class="form__field" id="input" required placeholder="Text"></textarea></br>
-        <input style="margin-left: 37%;" type="submit" name="submit" value="submit" id="submit" class="submit" />
+      <div class="options">
+        <!-- standard option -->
+        <input checked="checked" name="option" type="radio" id="standard" class="hide" value="standard.txt">
+        <label for="standard">Standard</label>
+        <!-- shadow option -->
+        <input name="option" type="radio" id="shadow" class="hide" value="shadow.txt">
+        <label for="shadow">Shadow</label>
+        <!-- tinkertoy option -->
+        <input name="option" type="radio" id="thinker" class="hide" value="thinkertoy.txt">
+        <label for="thinker">Thinkertoy</label>
+        </select>
+      </div></br>
+      <div class="cta" id="write">
+        <h5>Type here:</h5>
+      </div>
+      <textarea name="input" type="text" value="" class="form__field" id="input" placeholder="Text"
+        required></textarea></br>
+      <input style="margin-left: 37%;" type="submit" name="submit" value="submit" id="submit" class="submit" />
     </form>
-</div>
-<div class="bottom">
-  <pre>{{.}}</pre>
-</div>
+  </div>
+  {{if . }}
+  <div class="bottom">
+    <pre>{{.}}</pre>
+  </div>
+  {{end}}
 
-<div class="waveWrapper waveAnimation">
+  <div class="waveWrapper waveAnimation">
     <div class="waveWrapperInner bgTop">
-      <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+      <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')">
+      </div>
     </div>
     <div class="waveWrapperInner bgMiddle">
-      <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+      <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')">
+      </div>
     </div>
     <div class="waveWrapperInner bgBottom">
-      <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+      <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')">
+      </div>
     </div>
   </div>
 </body>
