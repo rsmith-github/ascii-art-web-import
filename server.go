@@ -13,8 +13,8 @@ func main() {
 	http.Handle("/", fileServer)
 	http.HandleFunc("/ascii-art", functions.FormHandler)
 
-	fmt.Printf("Starting server at http://localhost:8090\n")
-	if err := http.ListenAndServe(":8090", nil); err != nil {
+	fmt.Printf("Starting server at http://localhost:8080\n")
+	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
 	}
 }
