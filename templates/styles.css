@@ -263,6 +263,10 @@ animation: move-wave 3s;
   margin-top: -66px;
 }
 
+pre {
+  font-size: 85%
+}
+
 @media (max-width: 580px) {
   .title {
     margin-bottom: 120px;
