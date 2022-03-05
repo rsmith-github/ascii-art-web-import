@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -16,7 +17,15 @@ func main() {
 
 func AsciiArt(input string) string {
 	// get name of selected banner file from radio button.
-	content, err := os.Open("/Users/remingtonsmith/Downloads/Go/ascii-art-web/standard.txt")
+
+	// get parent file path.
+	wd, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+	parent := filepath.Dir(wd)
+	// open standard.txt
+	content, err := os.Open(parent + "/standard.txt")
 	if err != nil {
 		fmt.Println(err)
 		return ""
